@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maple · Build your playlist</title>
+  <link rel="stylesheet" href="maple_playlist_maker.css">
+</head>
+<body>
+
+<!-- Falling leaves on this canvas -->
+<canvas id="leaves" aria-hidden="true"></canvas>
+  <div class="app">
+
+    <aside class="side">
+      <a class="back-link" href="index.html">← Back</a>
+      <div class="brand">M🍁ple Tunes</div>
+
+      <nav aria-label="Library">
+        <button class="nav-item" id="navLibrary" data-act="go-library">
+          <span class="nav-name">Available Soundtracks</span>
+          <span class="nav-count" id="navCount"></span>
+        </button>
+
+        <div class="side-head">
+          <h2>Your playlists</h2>
+          <button class="icon-btn" data-act="new-list" aria-label="Create an empty playlist" data-icon="plus"></button>
+        </div>
+        <ul class="nav-list" id="playlistNav"></ul>
+      </nav>
+    </aside>
+
+    <main class="main" id="main" tabindex="-1"></main>
+
+  </div>
+
+  <!-- Player bar -->
+  <footer class="player" aria-label="Player">
+    <div class="np">
+      <div class="cover np-cover" id="npCover"></div>
+      <div class="np-text">
+        <div class="np-title" id="npTitle">Nothing playing</div>
+        <div class="np-artist" id="npArtist">Choose a song to start</div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <div class="controls">
+        <button class="icon-btn" id="btnShuffle" aria-label="Shuffle" aria-pressed="false" data-icon="shuffle"></button>
+        <button class="icon-btn" id="btnPrev" aria-label="Previous song" data-icon="prev"></button>
+        <button class="play-btn" id="btnPlay" aria-label="Play"></button>
+        <button class="icon-btn" id="btnNext" aria-label="Next song" data-icon="next"></button>
+        <button class="icon-btn repeat" id="btnRepeat" aria-label="Repeat off" aria-pressed="false" data-icon="repeat"></button>
+      </div>
+      <div class="seek-row">
+        <span class="time" id="tCur">0:00</span>
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1" aria-label="Seek">
+        <span class="time" id="tDur">0:00</span>
+      </div>
+    </div>
+
+    <div class="volume">
+      <button class="icon-btn" id="btnMute" aria-label="Mute" data-icon="volume"></button>
+      <input type="range" id="vol" min="0" max="100" value="80" aria-label="Volume">
+    </div>
+  </footer>
+
+  <!-- Shared dialog (rename, edit artist, confirm) -->
+  <dialog id="dlg">
+    <form method="dialog">
+      <h2 id="dlgTitle"></h2>
+      <p id="dlgMsg" class="dlg-msg"></p>
+      <label class="dlg-field" id="dlgField">
+        <span id="dlgLabel"></span>
+        <input type="text" id="dlgInput" maxlength="60" autocomplete="off">
+      </label>
+      <div class="dlg-actions">
+        <button class="btn primary" id="dlgOk" value="ok">Save</button>
+        <button class="btn" value="cancel" formnovalidate>Cancel</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="maple_playlist_maker.js"></script>
+  <script src="leaves.js"></script>
+</body>
+</html>

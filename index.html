@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autumn Tunes</title>
+
+<!-- Fonts (optional: if you are offline, the page falls back to Georgia / system fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Our styles -->
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- Falling leaves live on this canvas -->
+<canvas id="leaves"></canvas>
+
+<!-- =========================================================
+     LOGIN SCREEN (people must pass this to see the player)
+     ========================================================= -->
+<div id="login">
+  <form class="login-card" id="loginForm" autocomplete="off">
+    <h1>M🍁ple Tunes</h1>
+    <p class="sub">Listen • Look • And Listen</p>
+
+    <label for="username">What should we call you?</label>
+    <input id="username" type="text" placeholder="Enter your name" required>
+
+   <!-- <label for="password">Password</label>
+    <input id="password" type="password" required>-->
+
+  <p id="loginError" role="alert"></p>
+    <button class="btn-primary" type="submit">Start Listening</button>
+   <!-- <p class="hint">Demo account: autumn / leaves123</p>-->
+  </form>
+</div>
+
+<!-- =========================================================
+     FORM SCREEN (people must pass this to see the player first)
+     ========================================================= -->
+<!--<div class="form_container">
+    <form>
+      <h1>Welcome to Maple🍁</h1>
+      <div class="input-group">
+        <label for="nickname">What should we call you?</label>
+        <input type="text" id="nickname" placeholder="Enter your name">
+        <div class="mood-group">
+          <label for="mood">What's your mood today?</label>
+          <select id="mood" required>
+            <option value="" disabled selected>Select your mood</option>
+            <option value="Energetic">⚡ Energetic</option>
+            <option value="Chill">☕ Chill / Relaxed</option>
+            <option value="Nostalgic">🌄 Nostalgia </option>
+            <option value="Sad">🌧️ Melancholy / Sad</option>
+            <option value="Inspired">🤍 Inlove / Inspired</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit">Start Listening</button>
+    </form>
+  </div>-->     
+     
+
+<!-- =========================================================
+     THE PLAYER
+     ========================================================= -->
+<div id="app" class="hidden">
+
+  <header>
+    <div class="brand">M🍁ple Tunes</div>
+    <div class="user">
+      <span id="userName"></span>
+      <button class="link-btn" id="logoutBtn" type="button">Back to start</button>
+      <button class="link-btn" id="playlistBtn" type="button">Playlist maker</button>
+      <!--<a href="maple_playlist_maker.html" class="Energetic">
+         <button type="button">Energetic</button>-->
+    </div>
+  </header>
+
+  <main>
+    <!-- Now playing + lyrics -->
+    <section class="stage" aria-label="Now playing">
+      <div class="now">
+        <div class="cover" id="cover"></div>
+        <div>
+          <h2 id="title"></h2>
+          <p id="artist"></p>
+        </div>
+      </div>
+      <div class="lyrics" id="lyrics" aria-live="polite"></div>
+    </section>
+
+    <!-- Playlist on the side -->
+    <aside class="playlist" aria-label="Playlist">
+      <h3>Home Playlist</h3>
+      <p class="count" id="count"></p>
+      <ul id="list"></ul>
+    </aside>
+  </main>
+
+  <!-- Bottom bar: previous / play-pause / stop / next -->
+  <footer class="controls">
+    <div class="mini">
+      <div class="thumb" id="miniCover"></div>
+      <div class="t-info">
+        <span class="t-title" id="miniTitle"></span>
+        <span class="t-artist" id="miniArtist"></span>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="buttons">
+        <button class="icon-btn" id="btnPrev" type="button" aria-label="Previous song">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zM9.5 12l8.5 6V6z"/></svg>
+        </button>
+        <button class="icon-btn play" id="btnPlay" type="button" aria-label="Play">
+          <svg class="ico-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="ico-pause" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnStop" type="button" aria-label="Stop">
+          <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnNext" type="button" aria-label="Next song">
+          <svg viewBox="0 0 24 24"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+        </button>
+      </div>
+      <div class="seek">
+        <span id="curTime">0:00</span>
+        <input id="seek" type="range" min="0" max="100" step="0.1" value="0" aria-label="Seek">
+        <span id="durTime">0:00</span>
+      </div>
+    </div>
+
+    <div class="volume">
+      <span aria-hidden="true">🔈</span>
+      <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+    </div>
+  </footer>
+</div>
+
+<!-- Our JavaScript (must stay at the bottom, after the page content) -->
+<script src="script.js"></script>
+</body>
+</html>

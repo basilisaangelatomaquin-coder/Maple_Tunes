@@ -1,0 +1,250 @@
+/* =========================================================
+   1. COLORS & BASICS  (change the colors here to restyle)
+   ========================================================= */
+:root{
+  --bark:#1f0d09;       /* darkest brown   */
+  --umber:#3a1a12;
+  --rust:#b8431b;
+  --ember:#e8742a;
+  --gold:#f2b53f;       /* highlight color */
+  --oxblood:#7a1f1b;
+  --parchment:#f8ead3;  /* text color      */
+  --panel:rgba(34,13,8,.55);
+  --line:rgba(248,234,211,.16);
+  --display:'Fraunces', Georgia, 'Times New Roman', serif;
+  --ui:'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:var(--ui);
+  color:var(--parchment);
+  overflow:hidden;
+  /* slowly moving autumn gradient */
+  background:linear-gradient(135deg,#1f0d09,#4a1c10 30%,#9a3a14 65%,#d9731f);
+  background-size:300% 300%;
+  animation:drift 40s ease-in-out infinite;
+}
+@keyframes drift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hidden{display:none !important}
+button{font:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* The falling leaves canvas floats above everything (clicks pass through it) */
+#leaves{position:fixed;inset:0;z-index:10;pointer-events:none}
+
+/* =========================================================
+   2. LOGIN SCREEN
+   ========================================================= */
+#login{position:fixed;inset:0;z-index:5;display:grid;place-items:center;padding:20px;text-align: center;}
+.login-card{
+  width:min(400px,100%);
+  background:var(--panel);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  border:1px solid var(--line);border-radius:22px;padding:34px 30px;
+}
+.login-card h1{font-family:var(--display);font-size:2.3rem;line-height:1.1;margin-bottom:8px}
+.login-card .sub{opacity:.85;margin-bottom:10px}
+.login-card label{display:block;font-size:.92rem;margin:16px 0 6px}
+.login-card input{
+  width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);
+  background:rgba(0,0,0,.3);color:var(--parchment);font:inherit;
+}
+.btn-primary{
+  width:100%;margin-top:22px;padding:13px;border:0;border-radius:999px;
+  background:var(--gold);color:var(--bark);font-weight:600;font-size:1rem;cursor:pointer;
+}
+.btn-primary:hover{background:#ffc75a}
+#loginError{color:#ffb9a3;min-height:1.4em;margin-top:12px;font-size:.92rem}
+.hint{margin-top:10px;font-size:.85rem;opacity:.75}
+
+/* =========================================================
+   2. LOGIN SCREEN
+   ========================================================= */
+/*.form_container {
+  width: 520px;
+  height: 500px;
+  padding: 36px 32px 28px;
+  background-color: rgba(45,25,10,0.25);
+  border-radius: 28px;
+  color: #fbeb86;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  text-align: center;
+}
+.form_container h1 {
+  margin:0 0 40px;
+}
+.input-group label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+.input-group input {
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  width: 90%;
+  height: 52px;
+  border-radius: 22px;
+}
+#mood {
+  display: block;
+  width: 90%;
+  height: 52px;
+  margin: 0 auto;
+  padding: 0 16px;
+  font-size: 1.1rem;
+  border-radius: 22px;
+}
+
+.mood-group {
+  margin-top: 28px;     /* space between the name bar and "What's your mood today?" 
+  text-align: center;
+}
+
+.mood-group label {
+  display: block;
+  margin-bottom: 12px;
+}
+button {
+  width: 100%;
+  height: 54px;
+  margin-top: 24px;
+  background: #fbeb86;
+  color: #8a5a12;
+  border: 0;
+  border-radius: 999px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s, filter .15s;
+}
+
+button:hover  { filter: brightness(1.05); }
+button:active { transform: scale(0.98); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
+*/
+/* =========================================================
+   3. APP LAYOUT  (header / main / bottom controls)
+   ========================================================= */
+#app{position:relative;z-index:2;height:100vh;height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 24px}
+.brand{font-family:var(--display);font-size:1.6rem;font-weight:700}
+.user{display:flex;gap:12px;align-items:center;font-size:.95rem;}
+.link-btn{background:none;border:1px solid var(--line);color:var(--parchment);padding:7px 14px;border-radius:999px;cursor:pointer}
+.link-btn:hover{background:rgba(248,234,211,.12)}
+
+main{display:grid;grid-template-columns:1fr 340px;gap:18px;padding:0 24px 18px;min-height:0}
+.stage,.playlist{
+  background:var(--panel);
+  backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  border:1px solid var(--line);border-radius:22px;min-height:0;
+}
+
+/* ---- Now playing + lyrics ---- */
+.stage{display:flex;flex-direction:column;padding:24px}
+.now{display:flex;gap:22px;align-items:center;margin-bottom:12px}
+.cover{
+  width:132px;height:132px;flex:none;border-radius:18px;display:grid;place-items:center;
+  font-size:4rem;box-shadow:0 14px 30px rgba(0,0,0,.35);
+}
+.now h2{font-family:var(--display);font-size:clamp(1.8rem,4vw,2.9rem);line-height:1.05}
+.now p{margin-top:8px;opacity:.85}
+
+.lyrics{
+  position:relative;flex:1;min-height:0;overflow-y:auto;
+  -webkit-mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent);
+  mask-image:linear-gradient(transparent,#000 16%,#000 84%,transparent);
+  scrollbar-width:none;
+}
+.lyrics::-webkit-scrollbar{display:none}
+.line{
+  font-family:var(--display);font-size:clamp(1.25rem,2.5vw,1.9rem);line-height:1.35;
+  padding:7px 4px;opacity:.38;cursor:pointer;transform-origin:left center;
+  transition:opacity .35s,transform .35s,color .35s;
+}
+.line.past{opacity:.55}
+.line.active{opacity:1;color:var(--gold);transform:scale(1.06)}
+
+/* ---- Playlist in the side ---- */
+.playlist{display:flex;flex-direction:column;padding:18px 10px 10px}
+.playlist h3{font-family:var(--display);font-size:1.3rem;padding:0 12px}
+.playlist .count{font-size:.85rem;opacity:.75;padding:2px 12px 12px}
+#list{list-style:none;overflow-y:auto;min-height:0}
+.track{
+  display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;
+  width:100%;padding:8px 10px;border:0;border-radius:12px;background:none;color:inherit;text-align:left;cursor:pointer;
+}
+.track:hover{background:rgba(248,234,211,.09)}
+.track.active{background:rgba(242,181,63,.17)}
+.thumb{position:relative;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-size:1.4rem}
+.t-info{display:flex;flex-direction:column;min-width:0}
+.t-title{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-artist{font-size:.82rem;opacity:.72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-dur{font-size:.85rem;opacity:.72;font-variant-numeric:tabular-nums}
+
+/* little dancing bars shown on the track that is playing */
+.eq{position:absolute;inset:0;border-radius:10px;background:rgba(31,13,9,.7);display:none;align-items:center;justify-content:center;gap:3px}
+.eq i{display:block;width:3px;height:16px;border-radius:2px;background:var(--gold);transform-origin:bottom;animation:bounce .8s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:.2s}
+.eq i:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+body.is-playing .track.active .eq{display:flex}
+
+/* =========================================================
+   4. BOTTOM CONTROLS
+   ========================================================= */
+.controls{
+  display:grid;grid-template-columns:1fr minmax(280px,560px) 1fr;gap:16px;align-items:center;
+  padding:12px 24px 16px;background:rgba(24,9,6,.78);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);
+}
+.mini{display:flex;gap:12px;align-items:center;min-width:0}
+.mini .thumb{flex:none}
+.center{display:flex;flex-direction:column;gap:6px}
+.buttons{display:flex;justify-content:center;align-items:center;gap:10px}
+.icon-btn{
+  width:44px;height:44px;border-radius:50%;border:0;background:transparent;color:var(--parchment);
+  display:grid;place-items:center;cursor:pointer;transition:background .2s,transform .1s;
+}
+.icon-btn:hover{background:rgba(248,234,211,.14)}
+.icon-btn:active{transform:scale(.93)}
+.icon-btn svg{width:22px;height:22px;fill:currentColor}
+.icon-btn.play{width:56px;height:56px;background:var(--gold);color:var(--bark)}
+.icon-btn.play:hover{background:#ffc75a}
+body.is-playing .ico-play{display:none}
+body:not(.is-playing) .ico-pause{display:none}
+
+.seek{display:flex;gap:10px;align-items:center;font-size:.82rem;font-variant-numeric:tabular-nums}
+.volume{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:1.1rem}
+.volume input{width:110px;flex:none}
+
+input[type=range]{
+  -webkit-appearance:none;appearance:none;flex:1;height:6px;border-radius:999px;cursor:pointer;
+  background:linear-gradient(to right,var(--gold) var(--fill,0%),rgba(248,234,211,.22) var(--fill,0%));
+}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--parchment);border:0}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--parchment);border:0}
+
+/* =========================================================
+   5. PHONES & SMALL SCREENS
+   ========================================================= */
+@media (max-width:820px){
+  header{padding:12px 16px}
+  main{display:block;overflow-y:auto;padding:0 14px 14px}
+  .stage{padding:18px;margin-bottom:14px}
+  .cover{width:92px;height:92px;font-size:2.8rem}
+  .now{gap:16px}
+  .lyrics{flex:none;height:38vh}
+  .playlist{min-height:auto}
+  #list{overflow:visible}
+  .controls{grid-template-columns:1fr;padding:10px 16px 14px}
+  .mini,.volume{display:none}
+}
